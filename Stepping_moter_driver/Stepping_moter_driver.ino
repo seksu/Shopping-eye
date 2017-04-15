@@ -18,7 +18,7 @@ String enter          = "Enter Micro Step : ";
 
 void setup() {
   
-  Serial.begin(9600);
+  Serial.begin(115200);
   pinMode(dirPin1, OUTPUT);
   pinMode(stepperPin1, OUTPUT);
   pinMode(dirPin2, OUTPUT);
