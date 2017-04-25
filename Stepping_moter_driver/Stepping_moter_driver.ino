@@ -49,10 +49,15 @@ void loop(){
   if(Serial.available() > 0){
     int temp = Serial.parseInt();
     Serial.println(temp);
-    if(temp > 0)
+    if(temp >= 0){
+      //Serial.println("true");
       step(true,temp);
-    else
-      step(false,temp);
+    }
+    else{
+      //Serial.println("false");
+      step(false,abs(temp));
+    }
+      
     Serial.print(enter);
   }
   
