@@ -1,7 +1,7 @@
 // This code for stepping moter driver
 // This for Module
 // DIR_PIN  -> 3
-// STEP_PIN -> 2 
+// STEP_PIN -> 2
 
 ////////////////////// Config ///////////////////////
 
@@ -17,7 +17,7 @@ String enter          = "Enter Micro Step : ";
 ////////////////////////////////////////////////////
 
 void setup() {
-  
+
   Serial.begin(115200);
   pinMode(dirPin1, OUTPUT);
   pinMode(stepperPin1, OUTPUT);
@@ -25,15 +25,15 @@ void setup() {
   pinMode(stepperPin2, OUTPUT);
   Serial.println("8 Micro Step = 1 Step");
   Serial.print(enter);
-  
+
 }
 
-void step(boolean dir,int steps){
-  
-  digitalWrite(dirPin1,dir);
-  digitalWrite(dirPin2,dir);
+void step(boolean dir, int steps) {
+
+  digitalWrite(dirPin1, dir);
+  digitalWrite(dirPin2, dir);
   delay(50);
-  for(int i=0;i<steps;i++){
+  for (int i = 0; i < steps; i++) {
     digitalWrite(stepperPin1, HIGH);
     digitalWrite(stepperPin2, HIGH);
     delayMicroseconds(UsDelay);
@@ -41,24 +41,21 @@ void step(boolean dir,int steps){
     digitalWrite(stepperPin2, LOW);
     delayMicroseconds(UsDelay);
   }
-  
+
 }
 
-void loop(){
-  
-  if(Serial.available() > 0){
+void loop() {
+
+  if (Serial.available() > 0) {
     int temp = Serial.parseInt();
-    Serial.println(temp);
-    if(temp >= 0){
-      //Serial.println("true");
-      step(true,temp);
+    if (temp != 0) {
+      Serial.println(temp);
+      if (temp > 0)
+        step(true, temp);
+      else
+        step(false, abs(temp));
+      Serial.print(enter);
     }
-    else{
-      //Serial.println("false");
-      step(false,abs(temp));
-    }
-      
-    Serial.print(enter);
   }
-  
+
 }
