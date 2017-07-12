@@ -9,7 +9,7 @@ const int UsDelay     = 100;
 
 void setup() {
   Serial.begin(115200);
-  mcp.begin();
+  mcp.begin(0);
   for(int i=0 ; i<16 ; i++){
      mcp.pinMode(i, OUTPUT);
   }
@@ -18,6 +18,7 @@ void setup() {
   for(int i=0 ; i<16 ; i++){
      mcp.digitalWrite(i, HIGH);
   }
+  Serial.print("Input Step : ");
 }
 
 void step(int col,int steps){
@@ -25,14 +26,14 @@ void step(int col,int steps){
   if(steps > 0){
     digitalWrite(pinDir,HIGH);
   }
-  else if(steps <= 0){
+  else{
     digitalWrite(pinDir,LOW);
   }
   for(int i=0 ; i<abs(steps) ; i++){
     digitalWrite(pinStep,HIGH);
-    delay(UsDelay);
+    delayMicroseconds(UsDelay);
     digitalWrite(pinStep,LOW);
-    delay(UsDelay);
+    delayMicroseconds(UsDelay);
   }
   mcp.digitalWrite(col, HIGH);
 }
@@ -45,9 +46,10 @@ void loop() {
       Serial.print(input[i]);
       Serial.print(" ");
     }
-    for(int i=0 ; i<10 ; i++){
-      steps(i,input[i]);
-    }
     Serial.println();
+    for(int i=0 ; i<10 ; i++){
+      step(i,input[i]);
+    }
+    Serial.print("Input Step : "); 
   }
 }
