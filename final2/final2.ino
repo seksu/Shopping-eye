@@ -231,7 +231,7 @@ void loop() {
     drive(row,input);
     printVal(row,input);
     for(int i=0 ; i<10 ; i++){
-      currentPos[i] = input[i];
+      currentPos[i+((row-1)*10] = input[i];
     }
     Serial.print("Input Step : "); 
   }
